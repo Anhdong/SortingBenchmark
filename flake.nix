@@ -13,7 +13,6 @@
     pythonEnv = pkgs.python3.withPackages (ps: with ps; [
       pandas
       plotnine
-      matplotlib
     ]);
   in 
   {
