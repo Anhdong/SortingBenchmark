@@ -37,7 +37,7 @@ While divide-and-conquer algorithms ($O(N \log N)$) outperform $O(N^2)$ algorith
 
 ## 🚀 Prerequisites & Setup
 
-### Option 1: Using Nix Flakes (NixOS only)
+### Option 1: Using Nix Flakes (Require Nix package manager)
 Enter the pre-configured shell containing **OpenJDK 21**, **Python 3**, `pandas`, and `plotnine`:
 ```bash
 nix develop
