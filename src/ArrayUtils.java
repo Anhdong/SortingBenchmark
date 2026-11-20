@@ -28,7 +28,7 @@ public class ArrayUtils{
 
         return array;
     }
-    
+
     public static int[][] createTestCases(int numTests, int arraySize) {
         int[][] testCases = new int[numTests][arraySize];
         for (int i = 0; i < numTests; i++) {
@@ -47,4 +47,5 @@ public class ArrayUtils{
             array[i] = lo + i * step;
         }
         return array;
+    }
 }

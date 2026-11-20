@@ -34,7 +34,7 @@ public class Benchmark {
 
         // GENERATE TESTCASEs
         System.out.println("Generate TestCases");
-        int[][] testCases = ArrayUtils.createTestCases(numTests, arraySize, cutoffs);
+        int[][] testCases = ArrayUtils.createTestCases(numTests, arraySize);
 
         // JIT Warmup
         System.out.println("JIT Warm up");

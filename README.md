@@ -104,5 +104,41 @@ python script/visualize.py quicksort_result.csv mergesort_result.csv \
 
 ---
 
-## 📊 Example
+## 📖 Step-by-Step Example: Benchmarking QuickSort vs. MergeSort
 
+This walkthrough demonstrates how to run a full benchmark comparing **QuickSort** and **MergeSort** across **300 randomized arrays** of **10,000 elements**, evaluating cutoff sizes from **0 to 100** (in steps of 10), and plotting the results.
+
+### Step 1: Compile the Java Source Files
+Compile all `.java` files from `src/` into the `out/` directory:
+```bash
+javac -d out src/*.java
+```
+
+### Step 2: Run the QuickSort Benchmark
+Execute `Benchmark` with `Q` (QuickSort), `300` test iterations, an array size of `10000`, and a cutoff range of `0` to `100` with a step of `1`:
+```bash
+java -cp out Benchmark Q 300 10000 0 100 1
+```
+* The program generates 300 shuffled arrays of 10,000 integers, warms up the JVM JIT compiler for 10,000 iterations, and records execution times in nanoseconds.
+* **Tip:** For large arrays or wide ranges, start with a coarse step size (e.g., 10) to identify the optimal region, then narrow the range with a smaller step size (e.g., 1 or 2) to find the exact sweet spot. I just too lazy in this example😄."
+* When finished, the raw timing data is saved to `quicksort_result.csv` in the project root.
+
+### Step 3: Run the MergeSort Benchmark
+Run the exact same experiment for MergeSort using the `M` flag:
+```bash
+java -cp out Benchmark M 300 10000 0 100 1
+```
+* When finished, the raw timing data is saved to `mergesort_result.csv`.
+
+### Step 4: Generate the Comparison Plot
+Pass both generated CSV files to `script/visualize.py` to aggregate the execution times and render a comparison chart:
+```bash
+python script/visualize.py quicksort_result.csv mergesort_result.csv \
+  -o benchmark_result.png \
+  -t "QuickSort vs. MergeSort (N = 10,000, 300 Tests)"
+```
+* This reads both datasets, computes the average execution time per cutoff size, and saves the resulting chart to `benchmark.png`.
+
+### Output
+
+![QuickSort vs. MergeSort Benchmark Results](./results/benchmark_result.png)

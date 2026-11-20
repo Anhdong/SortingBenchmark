@@ -8,7 +8,7 @@ def main():
     parser = argparse.ArgumentParser(description="Visualize Sorting Benchmark Results")
     parser.add_argument("csv_files", nargs='+', type=str, help="Path to one or more benchmark CSV files")
     parser.add_argument("-o", "--output", type=str, default="benchmark_plot.png", help="Output image filename")
-    parser.add_argument("-t", "--title", type=str, default="Algorithm Performance vs. Cutout Size", help="Chart title")
+    parser.add_argument("-t", "--title", type=str, default="Algorithm Performance vs. Cutoff Size", help="Chart title")
 
     args = parser.parse_args()
 
@@ -20,7 +20,7 @@ def main():
         df = pd.read_csv(file_path)
         
         # Calculate the mean
-        df_avg = df.groupby("CutoutSize")["TimeNs"].mean().reset_index()
+        df_avg = df.groupby("CutoffSize")["TimeNs"].mean().reset_index()
         
         # Extract a clean name 
         file_name = os.path.basename(file_path)
@@ -38,12 +38,12 @@ def main():
 
     # Draw the chart
     plot = (
-        ggplot(combined_df, aes(x="CutoutSize", y="TimeNs", color="Algorithm"))
+        ggplot(combined_df, aes(x="CutoffSize", y="TimeNs", color="Algorithm"))
         + geom_line(size=1)
         + geom_point(size=2.5)
         + labs(
             title=args.title,
-            x="Cutout Size (Elements)",
+            x="Cutoff Size (Elements)",
             y="Average Execution Time (Nanoseconds)"
         )
         + theme_minimal()
