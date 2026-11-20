@@ -41,28 +41,23 @@ public class Benchmark {
         warmup(targetAlgorithm);
 
         // PREPARE THE CSV & RUN BENCHMARK
+        // Shuffle cutoffs order to randomize ordered bias
         System.out.println("Prepare CSV file and Running Benchmark...");
-        
-        // Using try-with-resources to automatically close the file
         try (PrintWriter csv = new PrintWriter(new FileWriter(fileName))) {
-            //Write header
-            csv.println("TestIndex,CutoutSize,TimeNs");
-
+            csv.println("TestIndex,CutoffSize,TimeNs");
+            int[] shuffledCutoffs = cutoffs.clone();
             for (int testIndex = 0; testIndex < numTests; testIndex++) {
-                for (int cutoff : cutoffs) {
-                    // MUST clone the original test case for every single cutoff attempt
+                ArrayUtils.shuffle(shuffledCutoffs);
+                for (int cutoff : shuffledCutoffs) {
                     int[] targetArray = testCases[testIndex].clone();
-                    
                     long startTime = System.nanoTime();
                     targetAlgorithm.sort(cutoff, targetArray);
                     long endTime = System.nanoTime();
-                    
                     long duration = endTime - startTime;
-                    
                     csv.println(testIndex + "," + cutoff + "," + duration); 
                 }
             }
-        } 
+        }
         
         System.out.println("Benchmark complete. Results saved to " + fileName);
     }

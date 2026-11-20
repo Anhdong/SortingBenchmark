@@ -17,17 +17,6 @@ public class ArrayUtils{
         a[y] = temp;
     }
 
-    public static int[][] createTestCases(int numTests, int arraySize, int[] cutoffs){
-        // Generate 2D array of TestCases with Cutoffs
-        int[][] testCases = new int[numTests][arraySize];
-        for (int i = 0; i < numTests; i++) {
-            for (int j = 0; j < arraySize; j++) {
-                testCases[i][j] = j;
-            }
-            ArrayUtils.shuffle(testCases[i]); 
-        }
-        return testCases;
-    }
     public static int[] createShuffleArray( int arraySize){
         // Generate a array of TestCases without Cutoffs
         int[] array = new int[arraySize];
@@ -39,15 +28,23 @@ public class ArrayUtils{
 
         return array;
     }
-    public static int[] createStepArray( int lo, int hi, int step){
-        // Generate a array of TestCases with step
-        int arrayLength = (hi-lo+step)/step;
-        int[] array = new int[arrayLength];
-
-        for (int i = 0; i < arrayLength; i++) {
-            array[i]= i*step;
+    
+    public static int[][] createTestCases(int numTests, int arraySize) {
+        int[][] testCases = new int[numTests][arraySize];
+        for (int i = 0; i < numTests; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                testCases[i][j] = j;
+            }
+            ArrayUtils.shuffle(testCases[i]); 
         }
-
-        return array;
+        return testCases;
     }
+
+    public static int[] createStepArray(int lo, int hi, int step) {
+        int arrayLength = (hi - lo) / step + 1;
+        int[] array = new int[arrayLength];
+        for (int i = 0; i < arrayLength; i++) {
+            array[i] = lo + i * step;
+        }
+        return array;
 }

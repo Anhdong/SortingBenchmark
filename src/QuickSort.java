@@ -15,7 +15,6 @@ public class QuickSort{
     }
 
     public static void sort(int CUTOFF, int[] a){
-        ArrayUtils.shuffle(a);
         sort(CUTOFF, a, 0, a.length - 1);
     }
 
